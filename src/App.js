@@ -2,7 +2,8 @@ import Expenses from "./components/Expenses/Expenses";
 import Card from "./components/UI/Card.js";
 import "./components/Expenses/Expenses.css"
 import NewExpenses from "./components/NewExpenses/NewExpenses";
-const expenses = [
+import { useState } from "react";
+const Dummy_Data = [
   {
   id: "e1",
   title: "Toilet Paper",
@@ -22,13 +23,21 @@ const expenses = [
   amount: 450,
   date: new Date(2021, 5, 12),
   },
+  
   ];
 
 const App = () => {
+  const [expenses,setExpense] = useState(Dummy_Data);
+  const addExpenseHandler = (formInputData) =>{
+    setExpense((expenses) => [formInputData,...expenses])
+    console.log("In App.js");
+    console.log(formInputData);
+
+  }
   return (
     <Card className = "expenses">
-   <NewExpenses></NewExpenses>
-   <Expenses expenses = {expenses}></Expenses>
+   <NewExpenses onAddExpenseData = {addExpenseHandler}></NewExpenses>
+   <Expenses items = {expenses}></Expenses>
    </Card>
   );
 }
